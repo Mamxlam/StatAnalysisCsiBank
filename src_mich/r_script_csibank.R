@@ -6,7 +6,7 @@ library(ggplot2)
 library(psych)
 
 #Read the dataset from the given excel
-csibank <- read_excel("G:\\My Drive\\WORK\\master\\Statistics\\Omada3\\csibank.xlsx")
+csibank <- read_excel("csibank.xlsx")
 #Open the dataset 'page' for viewing
 View(csibank)
 #See if there are missing values in any column (especially in the blocks that will be averaged)
