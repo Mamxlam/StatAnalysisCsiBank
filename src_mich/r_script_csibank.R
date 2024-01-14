@@ -39,15 +39,17 @@ ggplot(csibank, aes(x=Occupation))+geom_bar(stat="count")+labs(x="Occupation", y
 freq(csibank$Region)
 ggplot(csibank, aes(x=Region))+geom_bar(stat="count")+labs(x="Region", y="Count")
 
-freq(csibank$Image)
+
+describe(csibank[, c("Image", "Expectation", "Quality", "Value", "Satisfaction")])
+#freq(csibank$Image)
 ggplot(csibank, aes(x=Image))+geom_histogram()
-freq(csibank$Expectation)
+#freq(csibank$Expectation)
 ggplot(csibank, aes(x=Expectation))+geom_histogram()
-freq(csibank$Quality)
+#freq(csibank$Quality)
 ggplot(csibank, aes(x=Quality))+geom_histogram()
-freq(csibank$Value)
+#freq(csibank$Value)
 ggplot(csibank, aes(x=Value))+geom_histogram()
-freq(csibank$Satisfaction)
+#freq(csibank$Satisfaction)
 ggplot(csibank, aes(x=Satisfaction))+geom_histogram()
 
 freq(csibank$Loyalty)
