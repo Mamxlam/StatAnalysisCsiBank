@@ -13,8 +13,38 @@ library(psych)
 #BiocManager::install("impute")
 
 
+# No missing values
+install.packages("visdat")
+library(visdat)
+vis_miss(csibank)
+
 # General information about dataframe
 str(csibank)
+
+
+
+# Find zero values in data that will mess up the log transformation
+zero_count <- colSums(is.na(csibank) | csibank == 0, na.rm = TRUE)
+
+# Display the result
+print(zero_count)
+
+
+# Gender                        Age                  Education                 Occupation                     Region                 reputation            trustworthiness 
+# 0                          0                          0                          0                          0                         10                         15 
+# seriousness                  solidness                     caring              prod_services              cust_services                  solutions          expectations_qual 
+# 9                         19                         30                         12                         17                         26                         11 
+# reliable_services             range_products                pers_advice               overall_qual        beneficial_services       valuable_investments           quality_to_price 
+# 22                         21                         20                         21                         55                         26                         35 
+# price_to_quality     fulfilled_expectations satisf_against_other_banks    perf_against_ideal_bank                     return                  recommend              sense_loyalty 
+# 136                         25                         25                         43                         97                         64                        111 
+# imag_avg                   expe_avg                   qual_avg                    val_avg                    sat_avg                    loy_avg 
+# 2                          2                          3                         14                         15                         32 
+
+
+
+
+
 
 
 # Set ordered levels for Education column
@@ -482,27 +512,258 @@ calculate_spear_correlation <- function(df1, x_column, y_column) {
   # return(correlation_result)
 }
 
-calculate_pears_correlation(csibank, "imag_avg", "reputation") # p-value < 2.2e-16 , 0.809899
+calculate_pears_correlation(csibank, "imag_avg", "reputation") # p-value < 2.2e-16 , 0.809899 ***
 calculate_pears_correlation(csibank, "imag_avg", "trustworthiness") # p-value < 2.2e-16 , 0.7882289
 calculate_pears_correlation(csibank, "imag_avg", "seriousness") # p-value < 2.2e-16 , 0.7662788  
 calculate_pears_correlation(csibank, "imag_avg", "solidness") # p-value < 2.2e-16 , 0.7559177
 calculate_pears_correlation(csibank, "imag_avg", "caring") # p-value < 2.2e-16 , 0.613812
 
-calculate_pears_correlation(csibank, "expe_avg", "prod_services") 
-calculate_pears_correlation(csibank, "expe_avg", "cust_services") 
-calculate_pears_correlation(csibank, "expe_avg", "solutions") 
-calculate_pears_correlation(csibank, "expe_avg", "expectations_qual")
+calculate_pears_correlation(csibank, "expe_avg", "prod_services") # p-value < 2.2e-16 , 0.4564061 
+calculate_pears_correlation(csibank, "expe_avg", "cust_services") # p-value < 2.2e-16 , 0.4653631 
+calculate_pears_correlation(csibank, "expe_avg", "solutions") # p-value < 2.2e-16 , 0.8536487   ***
+calculate_pears_correlation(csibank, "expe_avg", "expectations_qual") # p-value < 2.2e-16 , 0.613812
 
-calculate_pears_correlation(csibank, "qual_avg", "reliable_services") 
-calculate_pears_correlation(csibank, "qual_avg", "range_products") 
-calculate_pears_correlation(csibank, "qual_avg", "pers_advice") 
-calculate_pears_correlation(csibank, "qual_avg", "overall_qual")
+calculate_pears_correlation(csibank, "qual_avg", "reliable_services") # p-value < 2.2e-16 , 0.613812
+calculate_pears_correlation(csibank, "qual_avg", "range_products") # p-value < 2.2e-16 , 0.5966636 
+calculate_pears_correlation(csibank, "qual_avg", "pers_advice") # p-value < 2.2e-16 , 0.5284636 
+calculate_pears_correlation(csibank, "qual_avg", "overall_qual") # p-value < 2.2e-16 , 0.7190517 ***
 
-calculate_pears_correlation(csibank, "val_avg", "beneficial_services") 
-calculate_pears_correlation(csibank, "val_avg", "valuable_investments") 
-calculate_pears_correlation(csibank, "val_avg", "quality_to_price") 
-calculate_pears_correlation(csibank, "val_avg", "price_to_quality")
+calculate_pears_correlation(csibank, "val_avg", "beneficial_services") # p-value < 2.2e-16 , 0.5522145  
+calculate_pears_correlation(csibank, "val_avg", "valuable_investments") # p-value < 2.2e-16 , 0.9993053  ***
+calculate_pears_correlation(csibank, "val_avg", "quality_to_price") # p-value < 2.2e-16 , 0.5012689  
+calculate_pears_correlation(csibank, "val_avg", "price_to_quality") # p-value < 2.2e-16 , 0.3122601  
 
-calculate_pears_correlation(csibank, "sat_avg", "fulfilled_expectations") 
-calculate_pears_correlation(csibank, "sat_avg", "satisf_against_other_banks") 
-calculate_pears_correlation(csibank, "sat_avg", "perf_against_ideal_bank") 
+calculate_pears_correlation(csibank, "sat_avg", "fulfilled_expectations") # p-value < 2.2e-16 , 0.7003888   
+calculate_pears_correlation(csibank, "sat_avg", "satisf_against_other_banks") # p-value < 2.2e-16 , 0.9996887   ***
+calculate_pears_correlation(csibank, "sat_avg", "perf_against_ideal_bank") # p-value < 2.2e-16 , 0.6137677   
+
+calculate_pears_correlation(csibank, "loy_avg", "imag_avg") # p-value < 2.2e-16 , 0.5141267 
+calculate_pears_correlation(csibank, "loy_avg", "expe_avg") # p-value < 2.2e-16 , 0.4840054 
+calculate_pears_correlation(csibank, "loy_avg", "qual_avg") # p-value < 2.2e-16 , 0.5295417   
+calculate_pears_correlation(csibank, "loy_avg", "val_avg") # p-value < 2.2e-16 , 0.6306719 
+calculate_pears_correlation(csibank, "loy_avg", "sat_avg") # p-value < 2.2e-16 , 0.7026083
+
+# ====================================================================================
+
+one_hot_encode <- function(df) {
+  factor_columns <- sapply(df, is.factor)
+  
+  # Check if there are any factor columns
+  if (any(factor_columns)) {
+    # Identify factor columns
+    factor_names <- names(df)[factor_columns]
+    
+    # Perform one-hot encoding for factor columns
+    encoded_df <- df
+    for (col in factor_names) {
+      encoded_df <- cbind(encoded_df, model.matrix(~ . - 1, data = df[, col, drop = FALSE]))
+    }
+    
+    # Remove the original factor columns
+    encoded_df <- encoded_df[, !factor_columns, drop = FALSE]
+    
+    # Convert the result back to a data frame
+    encoded_df <- as.data.frame(encoded_df)
+    
+    return(encoded_df)
+  } else {
+    cat("No factor columns found in the data frame.\n")
+    return(df)
+  }
+}
+
+# Copy data of csibank
+csibank_no_zeros <- csibank
+
+# Remove zeros to not mess up log transforms
+csibank_no_zeros[real_columns] <- lapply(csibank[real_columns], function(x) ifelse(x == 0, NA, x))
+
+# Perform one hot encoding to categorical variables
+csibank_no_zeros <- one_hot_encode(csibank_no_zeros)
+
+
+# Approach -> Will add variables (constructs only) that most correlate with the dependent variable
+
+
+# Train linear regression model on data
+mdl1 <- lm(log(loy_avg) ~ log(sat_avg),
+           data = csibank_no_zeros)
+summary(mdl1)
+
+# Call:
+# lm(formula = log(loy_avg) ~ log(qual_avg), data = csibank_no_zeros)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -3.10643 -0.08743  0.07162  0.17955  2.04792 
+# 
+#   Coefficients:
+#                  Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept)    0.27715    0.06357    4.36 1.38e-05 ***
+#   log(qual_avg)  0.80870    0.03167   25.53  < 2e-16 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.3603 on 1673 degrees of freedom
+# (32 observations deleted due to missingness)
+# Multiple R-squared:  0.2804,	Adjusted R-squared:   0.28 
+# F-statistic: 651.9 on 1 and 1673 DF,  p-value: < 2.2e-16
+
+mdl2 <- lm(log(loy_avg) ~ log(sat_avg) + log(val_avg),
+           data = csibank_no_zeros)
+summary(mdl2)
+
+# Call:
+#   lm(formula = log(loy_avg) ~ log(sat_avg) + log(val_avg), data = csibank_no_zeros)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -2.73670 -0.07667  0.03692  0.13382  1.47053 
+# 
+#   Coefficients:
+#                 Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept)  -0.26481    0.05000  -5.296 1.34e-07 ***
+#   log(sat_avg)  0.73176    0.03215  22.763  < 2e-16 ***
+#   log(val_avg)  0.38208    0.03171  12.049  < 2e-16 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.2866 on 1664 degrees of freedom
+# (40 observations deleted due to missingness)
+# Multiple R-squared:  0.5347,	Adjusted R-squared:  0.5342 
+# F-statistic: 956.2 on 2 and 1664 DF,  p-value: < 2.2e-16
+
+mdl3 <- lm(log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg),
+           data = csibank_no_zeros)
+summary(mdl3)
+
+
+# Call:
+#   lm(formula = log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg), 
+#      data = csibank_no_zeros)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -2.78386 -0.07451  0.03469  0.13262  1.37408 
+# 
+#   Coefficients:
+#                  Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept)   -0.41138    0.05733  -7.176 1.08e-12 ***
+#   log(sat_avg)   0.66637    0.03438  19.382  < 2e-16 ***
+#   log(val_avg)   0.33504    0.03280  10.216  < 2e-16 ***
+#   log(qual_avg)  0.18253    0.03574   5.107 3.65e-07 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.2844 on 1663 degrees of freedom
+# (40 observations deleted due to missingness)
+# Multiple R-squared:  0.5419,	Adjusted R-squared:  0.5411 
+# F-statistic: 655.8 on 3 and 1663 DF,  p-value: < 2.2e-16
+
+
+
+mdl4 <- lm(log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg) + log(imag_avg),
+           data = csibank_no_zeros)
+summary(mdl4) # Didn;t improve much. little impact of imag_avg variable. So removing
+
+
+# Call:
+#   lm(formula = log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg) + 
+#        log(imag_avg), data = csibank_no_zeros)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -2.78960 -0.07645  0.03285  0.13137  1.38394 
+# 
+#    Coefficients:
+#                  Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept)   -0.48573    0.06900  -7.040 2.81e-12 ***
+#   log(sat_avg)   0.65633    0.03474  18.891  < 2e-16 ***
+#   log(val_avg)   0.31441    0.03446   9.123  < 2e-16 ***
+#   log(qual_avg)  0.15813    0.03788   4.175 3.13e-05 ***
+#   log(imag_avg)  0.09153    0.04736   1.933   0.0534 .  
+# ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.2842 on 1662 degrees of freedom
+# (40 observations deleted due to missingness)
+# Multiple R-squared:  0.5429,	Adjusted R-squared:  0.5418 
+# F-statistic: 493.6 on 4 and 1662 DF,  p-value: < 2.2e-16
+
+
+mdl5 <- lm(log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg) + log(expe_avg),
+           data = csibank_no_zeros)
+summary(mdl5) # Again, expe_avg didn't improve our model much. Actually the residual standard error dropped a little
+
+# Call:
+#   lm(formula = log(loy_avg) ~ log(sat_avg) + log(val_avg) + log(qual_avg) + 
+#        log(expe_avg), data = csibank_no_zeros)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -2.78099 -0.07481  0.03369  0.13232  1.36393 
+# 
+# Coefficients:
+#   Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)   -0.44055    0.06441  -6.840 1.11e-11 ***
+#   log(sat_avg)   0.66214    0.03464  19.113  < 2e-16 ***
+#   log(val_avg)   0.32884    0.03338   9.850  < 2e-16 ***
+#   log(qual_avg)  0.16614    0.03936   4.221 2.57e-05 ***
+#   log(expe_avg)  0.04034    0.04061   0.993    0.321    
+# ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.2844 on 1662 degrees of freedom
+# (40 observations deleted due to missingness)
+# Multiple R-squared:  0.5422,	Adjusted R-squared:  0.5411 
+# F-statistic: 492.1 on 4 and 1662 DF,  p-value: < 2.2e-16
+
+
+# ====================================================================================
+
+
+
+# Continue With ANOVA comparison of models. 
+
+
+
+
+# Perform training of model with 
+#   - Intercept
+#   - All predictors
+#   - Forward Selection
+#   - Backward selection
+
+
+
+# ====================================================================================
+
+# library(MASS)
+# model <- polr(Satisfaction ~ Predictor1 + Predictor2, data = your_data)
+# 
+# 
+# library(MASS)
+# model <- polr(Satisfaction ~ Predictor1 + Predictor2, data = your_data, Hess=TRUE)
+# 
+# # Random Forest
+# library(randomForest)
+# model <- randomForest(Satisfaction ~ Predictor1 + Predictor2, data = your_data)
+# 
+# # Gradient Boosted Trees
+# library(gbm)
+# model <- gbm(Satisfaction ~ Predictor1 + Predictor2, data = your_data, distribution = "ordinal")
+# 
+# 
+# library(nnet)
+# model <- multinom(Satisfaction ~ Predictor1 + Predictor2, data = your_data)
+# 
+# library(brms)
+# model <- brm(Satisfaction ~ Predictor1 + Predictor2, data = your_data, family = cumulative())
+# 
+# 
+# library(lavaan)
+# model <- sem("Latent =~ Indicator1 + Indicator2", data = your_data)
+# 
+# 
+# library(gamlss)
+# model <- gamlss(Satisfaction ~ Predictor1 + Predictor2, data = your_data, family = "Categorical")
