@@ -231,6 +231,8 @@ t.test(log_loy_sub ~ Age,
 #   mean in group <=25 mean in group 36-45 
 # 1.916506            1.858549 
 
+wilcox.test(log_loy_sub ~ Age, data=subset_data)
+
 # -------------------------------------------------------
 
 # perform test for homogeneity of variance
@@ -258,6 +260,8 @@ t.test(log_loy ~ Gender,
 # sample estimates:
 #   mean in group Female   mean in group Male 
 # 1.884426             1.884764 
+
+wilcox.test(log_loy_sub ~ Gender, data=subset_data)
 
 # -------------------------------------------------------
 
@@ -292,7 +296,7 @@ t.test(log_loy_sub ~ Region,
 #   mean in group East mean in group North 
 # 1.913579            1.890348 
 
-
+wilcox.test(log_loy_sub ~ Region, data=subset_data)
 
 # -------------------------------------------------------
 
@@ -326,6 +330,8 @@ t.test(log_loy_sub ~ Occupation,
 # sample estimates:
 #   mean in group Manager mean in group MediumEmplo 
 # 1.809779                  1.867239 
+
+wilcox.test(log_loy_sub ~ Occupation, data=subset_data)
 
 
 # -------------------------------------------------------
@@ -367,7 +373,7 @@ t.test(log_loy_sub ~ Occupation,
 
 # Statistical significant difference between managers and retired over loyalty towards the bank.
 
-
+wilcox.test(log_loy_sub ~ Occupation, data=subset_data)
 
 # -------------------------------------------------------
 
@@ -391,6 +397,8 @@ leveneTest(log_loy_sub ~ Education,
 t.test(log_loy_sub ~ Education,
        data=subset_data,
        var.equal=T)
+
+wilcox.test(log_loy_sub ~ Education, data=subset_data)
 
 # Two Sample t-test
 # 
@@ -441,8 +449,13 @@ t.test(log_loy_sub ~ Education,
 #   mean in group Unfinished  mean in group Graduated 
 # 1.894819                 1.765440 
 
-
 # No Statistically significant difference between Unfinished and Graduated over loyalty towards the bank.
+
+
+
+wilcox.test(log_loy_sub ~ Education, data=subset_data)
+
+
 
 # -------------------------------------------------------
 
@@ -455,7 +468,7 @@ selected_columns[selected_columns == -Inf] <- NA
 ggpairs(
   selected_columns,
   upper = list(
-    continuous = wrap("cor", method = "spearman", size = 5) # As we use log than we can use spearman (non-parametric)
+    continuous = wrap("cor", method = "spearman", size = 5) # As we use log than we can use pearson (parametric)
   ),
   diag = list(
     continuous = wrap("densityDiag", alpha = 0.5)
@@ -544,7 +557,9 @@ calculate_pears_correlation(csibank, "loy_avg", "val_avg") # p-value < 2.2e-16 ,
 calculate_pears_correlation(csibank, "loy_avg", "sat_avg") # p-value < 2.2e-16 , 0.7026083
 
 
-# Non - parametric
+
+
+
 calculate_spear_correlation(csibank, "imag_avg", "reputation") # p-value < 2.2e-16 , 0.7923146  
 calculate_spear_correlation(csibank, "imag_avg", "trustworthiness") # p-value < 2.2e-16 , 0.7901882 
 calculate_spear_correlation(csibank, "imag_avg", "seriousness") # p-value < 2.2e-16 , 0.7776717   
