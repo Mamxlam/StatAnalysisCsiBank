@@ -543,6 +543,40 @@ calculate_pears_correlation(csibank, "loy_avg", "qual_avg") # p-value < 2.2e-16 
 calculate_pears_correlation(csibank, "loy_avg", "val_avg") # p-value < 2.2e-16 , 0.6306719 
 calculate_pears_correlation(csibank, "loy_avg", "sat_avg") # p-value < 2.2e-16 , 0.7026083
 
+
+# Non - parametric
+calculate_spear_correlation(csibank, "imag_avg", "reputation") # p-value < 2.2e-16 , 0.7923146  
+calculate_spear_correlation(csibank, "imag_avg", "trustworthiness") # p-value < 2.2e-16 , 0.7901882 
+calculate_spear_correlation(csibank, "imag_avg", "seriousness") # p-value < 2.2e-16 , 0.7776717   
+calculate_spear_correlation(csibank, "imag_avg", "solidness") # p-value < 2.2e-16 , 0.7980856
+calculate_spear_correlation(csibank, "imag_avg", "caring") # p-value < 2.2e-16 , 0.6523445 
+
+calculate_spear_correlation(csibank, "expe_avg", "prod_services") # p-value < 2.2e-16 , 0.6303961  
+calculate_spear_correlation(csibank, "expe_avg", "cust_services") # p-value < 2.2e-16 , 0.6103734  
+calculate_spear_correlation(csibank, "expe_avg", "solutions") # p-value < 2.2e-16 , 0.6656642   
+calculate_spear_correlation(csibank, "expe_avg", "expectations_qual") # p-value < 2.2e-16 , 0.8619103 
+
+calculate_spear_correlation(csibank, "qual_avg", "reliable_services") # p-value < 2.2e-16 , 0.5423402 
+calculate_spear_correlation(csibank, "qual_avg", "range_products") # p-value < 2.2e-16 , 0.6441465 
+calculate_spear_correlation(csibank, "qual_avg", "pers_advice") # p-value < 2.2e-16 , 0.6261824  
+calculate_spear_correlation(csibank, "qual_avg", "overall_qual") # p-value < 2.2e-16 , 0.7440752
+
+calculate_spear_correlation(csibank, "val_avg", "beneficial_services") # p-value < 2.2e-16 , 0.7627603   
+calculate_spear_correlation(csibank, "val_avg", "valuable_investments") # p-value < 2.2e-16 , 0.980741
+calculate_spear_correlation(csibank, "val_avg", "quality_to_price") # p-value < 2.2e-16 , 0.7840264   
+calculate_spear_correlation(csibank, "val_avg", "price_to_quality") # p-value < 2.2e-16 , 0.5965029   
+
+calculate_spear_correlation(csibank, "sat_avg", "fulfilled_expectations") # p-value < 2.2e-16 , 0.8720271    
+calculate_spear_correlation(csibank, "sat_avg", "satisf_against_other_banks") # p-value < 2.2e-16 , 0.9835097 
+calculate_spear_correlation(csibank, "sat_avg", "perf_against_ideal_bank") # p-value < 2.2e-16 , 0.7725236    
+
+calculate_spear_correlation(csibank, "loy_avg", "imag_avg") # p-value < 2.2e-16 , 0.5866996  
+calculate_spear_correlation(csibank, "loy_avg", "expe_avg") # p-value < 2.2e-16 , 0.6739011  
+calculate_spear_correlation(csibank, "loy_avg", "qual_avg") # p-value < 2.2e-16 , 0.6837332    
+calculate_spear_correlation(csibank, "loy_avg", "val_avg") # p-value < 2.2e-16 , 0.63419 
+calculate_spear_correlation(csibank, "loy_avg", "sat_avg") # p-value < 2.2e-16 , 0.7117097 
+
+
 # ====================================================================================
 
 one_hot_encode <- function(df) {
