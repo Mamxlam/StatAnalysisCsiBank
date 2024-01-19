@@ -455,7 +455,7 @@ selected_columns[selected_columns == -Inf] <- NA
 ggpairs(
   selected_columns,
   upper = list(
-    continuous = wrap("cor", method = "pearson", size = 5) # As we use log than we can use pearson (parametric)
+    continuous = wrap("cor", method = "spearman", size = 5) # As we use log than we can use spearman (non-parametric)
   ),
   diag = list(
     continuous = wrap("densityDiag", alpha = 0.5)
